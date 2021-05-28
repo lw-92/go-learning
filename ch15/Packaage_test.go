@@ -1,7 +1,7 @@
 package ch15
 
 import (
-	"learning/common"
+	"learning/common" // 为什么是learning 下的common
 	"testing"
 )
 
