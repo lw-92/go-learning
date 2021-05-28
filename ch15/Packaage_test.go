@@ -1,7 +1,8 @@
 package ch15
 
 import (
-	"learning/common" // 为什么是learning 下的common
+	cm "github.com/easierway/concurrent_map" // 从git hub 上导包
+	"learning/common"
 	"testing"
 )
 
@@ -16,4 +17,10 @@ gopath:
 func TestP(t *testing.T) {
 	common.DoCommonThings()
 	t.Log("complete")
+}
+
+func TestConcurrentMap(t *testing.T) {
+	m := cm.CreateConcurrentMap(99)
+	m.Set(cm.StrKey("key"), 10)
+	t.Log(m.Get(cm.StrKey("key")))
 }
