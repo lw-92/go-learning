@@ -44,7 +44,7 @@ func TestTyoeAndValue(t *testing.T) {
 
 type Employee struct {
 	Id   string
-	Name string
+	Name string `for:"normal""`
 	Age  int
 }
 
@@ -62,4 +62,14 @@ func TestInvokeByName(t *testing.T) {
 	t.Log("Name=", reflect.ValueOf(*employee).FieldByName("Name"))
 	reflect.ValueOf(employee).MethodByName("UpdateAge").Call([]reflect.Value{reflect.ValueOf(100)})
 	t.Log(employee)
+	if name, b := reflect.TypeOf(*employee).FieldByName("Name"); b {
+		t.Log("tag:for=", name.Tag.Get("for"))
+	}
+}
+
+/**
+获取struct tah
+*/
+func TestTag(t *testing.T) {
+
 }
