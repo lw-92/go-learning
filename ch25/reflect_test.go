@@ -12,6 +12,7 @@ go 中反射
  reflect.ValueOf 返回值（reflect.Value)
  可以从reflect.Value 获得类型
  通过Kind来判断类型 ，kind 是枚举类型
+ reflect.ValueOf(*e).FiledByName(name)// 获取某个成员的值
 */
 
 func CheckType(v interface{}) {
@@ -39,4 +40,20 @@ func TestTyoeAndValue(t *testing.T) {
 	var i int64 = 12
 	t.Log(reflect.TypeOf(i), reflect.ValueOf(i))
 	t.Log(reflect.ValueOf(i).Type())
+}
+
+type Employee struct {
+	Id   string
+	Name string
+	Age  int
+}
+
+/**
+&符号的意思是对变量取地址
+*符号的意思是对指针取值
+*/
+func TestInvokeByName(t *testing.T) {
+	employee := &Employee{"1", "mike", 30}
+	// 为什么这里要用*
+	t.Log("Name=", reflect.ValueOf(*employee).FieldByName("Name"))
 }

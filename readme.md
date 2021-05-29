@@ -10,7 +10,8 @@ select只能应用于channel的操作，既可以用于channel的数据接收，
 switch可以为各种类型进行分支操作， 设置可以为接口类型进行分支判断(通过i.(type))
 
 #* 和& 的区别，指针和值
-
+&符号的意思是对变量取地址
+*符号的意思是对指针取值
 #benchmark 测试没有输出时间
 go test -bench=.
 #goconvey
