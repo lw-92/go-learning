@@ -2,6 +2,7 @@ package ch23
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -32,4 +33,11 @@ func TestFatalInCode(t *testing.T) {
 	fmt.Print("start")
 	t.Fatal("error")
 	fmt.Println("end")
+}
+
+/**
+https://github.com/stretchr/testify
+*/
+func TestWithTestify(t *testing.T) {
+	assert.Equal(t, 123, 123, "they should be equal")
 }
