@@ -13,3 +13,4 @@ switch可以为各种类型进行分支操作， 设置可以为接口类型进�
 
 #benchmark 测试没有输出时间
 go test -bench=.
+#goconvey
