@@ -48,6 +48,10 @@ type Employee struct {
 	Age  int
 }
 
+func (e *Employee) UpdateAge(age int) {
+	e.Age = age
+}
+
 /**
 &符号的意思是对变量取地址
 *符号的意思是对指针取值
@@ -56,4 +60,6 @@ func TestInvokeByName(t *testing.T) {
 	employee := &Employee{"1", "mike", 30}
 	// 为什么这里要用*
 	t.Log("Name=", reflect.ValueOf(*employee).FieldByName("Name"))
+	reflect.ValueOf(employee).MethodByName("UpdateAge").Call([]reflect.Value{reflect.ValueOf(100)})
+	t.Log(employee)
 }
