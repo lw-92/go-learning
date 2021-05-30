@@ -27,12 +27,6 @@ package main
 
 */
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 /**
 递归交换子树
 这里需要判断空指针

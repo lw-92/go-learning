@@ -35,12 +35,6 @@ package main
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 /**
 给 flatten 函数输入一个节点 root，那么以 root 为根的二叉树就会被拉平为一条链表。
 
