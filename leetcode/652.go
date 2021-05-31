@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
 给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意一棵的根结点即可。
@@ -44,15 +46,25 @@ import "fmt"
 
 func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
 	allSubtreeMapping := make(map[string]int)
-
+	var nodes []*TreeNode
+	buildSubTree(root, allSubtreeMapping, nodes)
+	return nodes
 }
 
-func buildSubTree(node *TreeNode, allSubtreeMapping *map[string]int) string {
+/**
+意思是，一开始也是写作 *map[key]value，后来发现所有的map都是当作指针来用的，于是就省略简写了。
+*/
+func buildSubTree(node *TreeNode, allSubtreeMapping map[string]int, nodes []*TreeNode) string {
 	if node == nil {
 		return "#"
 	}
-	sprintf := fmt.Sprintf("%d,%s,%s", node.Val, buildSubTree(node.Left, allSubtreeMapping), buildSubTree(node.Right, allSubtreeMapping))
+	sprintf := fmt.Sprintf("%d,%s,%s", node.Val, buildSubTree(node.Left, allSubtreeMapping, nodes), buildSubTree(node.Right, allSubtreeMapping, nodes))
+
 	if v, ok := allSubtreeMapping[sprintf]; ok {
 		allSubtreeMapping[sprintf] = v + 1
+		_ = append(nodes, node)
+	} else {
+		allSubtreeMapping[sprintf] = 1
 	}
+	return sprintf
 }
