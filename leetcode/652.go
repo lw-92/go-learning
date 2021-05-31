@@ -45,26 +45,23 @@ import (
 */
 
 func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
-	allSubtreeMapping := make(map[string]int)
-	var nodes []*TreeNode
-	buildSubTree(root, allSubtreeMapping, nodes)
-	return nodes
-}
+	m := make(map[string]int)
+	var result []*TreeNode
 
-/**
-意思是，一开始也是写作 *map[key]value，后来发现所有的map都是当作指针来用的，于是就省略简写了。
-*/
-func buildSubTree(node *TreeNode, allSubtreeMapping map[string]int, nodes []*TreeNode) string {
-	if node == nil {
-		return "#"
+	var dfs func(root *TreeNode) string
+	dfs = func(root *TreeNode) string {
+		if root == nil {
+			return ""
+		}
+		serial := fmt.Sprintf("%d,%s,%s", root.Val, dfs(root.Left), dfs(root.Right))
+		m[serial]++
+		if m[serial] == 2 {
+			result = append(result, root)
+		}
+		return serial
 	}
-	sprintf := fmt.Sprintf("%d,%s,%s", node.Val, buildSubTree(node.Left, allSubtreeMapping, nodes), buildSubTree(node.Right, allSubtreeMapping, nodes))
 
-	if v, ok := allSubtreeMapping[sprintf]; ok {
-		allSubtreeMapping[sprintf] = v + 1
-		_ = append(nodes, node)
-	} else {
-		allSubtreeMapping[sprintf] = 1
-	}
-	return sprintf
+	dfs(root)
+	return result
+
 }
