@@ -30,28 +30,39 @@ var reverseFunc func(head *ListNode) *ListNode
 
 解题思路为给出m和n，我们分别找到第m-1和n+1个节点，然后让第m-1个节点连在n的前面，第m个节点连在第n+1个节点的前面，就完成了反转，
 此时要注意m如果等于1的情况，即m为头借点，这时直接让第m个节点连在第n+1个节点前面就完成了任务。
+https://labuladong.gitee.io/algo/2/17/16/
+
 */
+var successor *ListNode = nil // 后驱节点
 
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	/**
+	反转以 head 为起点的 n 个节点，返回新的头结点
+	*/
+	var reverseN func(head *ListNode, n int) *ListNode
 
-	var helpFunc func(head *ListNode, left int, right int) *ListNode
-	helpFunc = func(head *ListNode, left int, right int) *ListNode {
-		if left > 1 {
-			head.Next = reverseBetween(head.Next, left-1, right-1)
+	reverseN = func(head *ListNode, n int) *ListNode {
+
+		if n == 1 {
+			// 记录第 n + 1 个节点
+			successor = head.Next
 			return head
-		} else {
-			if right > 1 {
-				between := reverseBetween(head.Next, left, right-1)
-				head.Next.Next, head.Next = head, head.Next.Next
-				return between
-			} else {
-				return head
-			}
 		}
+		last := reverseN(head.Next, n-1)
+		head.Next.Next = head
+		head.Next = successor
+		return last
+
 	}
-	if left == right {
-		return head
+	if left == 1 {
+		// 相当于反转前 n 个元素
+		return reverseN(head, right)
 	}
-	return helpFunc(head, left, right)
+	/**
+	如果 m != 1 怎么办？如果我们把 head 的索引视为 1，那么我们是想从第 m 个元素开始反转对吧；
+	如果把 head.next 的索引视为 1 呢？那么相对于 head.next，反转的区间应该是从第 m - 1 个元素开始的；那么对于 head.next.next 呢……
+	*/
+	head.Next = reverseBetween(head.Next, left-1, right-1)
+	return head
 
 }
