@@ -27,6 +27,9 @@ var reverseFunc func(head *ListNode) *ListNode
 		head.Next = nil
 		return next
 	}
+
+解题思路为给出m和n，我们分别找到第m-1和n+1个节点，然后让第m-1个节点连在n的前面，第m个节点连在第n+1个节点的前面，就完成了反转，
+此时要注意m如果等于1的情况，即m为头借点，这时直接让第m个节点连在第n+1个节点前面就完成了任务。
 */
 
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
